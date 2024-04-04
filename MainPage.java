@@ -29,20 +29,20 @@ public class MainPage {
         Assert.assertEquals(actURL, expURL);
     }
     @Test
-    public void homeTitle() {
+    public void TestHomeTitle() {
         String expTitle = "Allhockey.ru - главный хоккейный информационный сайт России";
         String actTitle = driver.getTitle();
         Assert.assertEquals(expTitle, actTitle);
     }
     @Test
-    public void aboutUs() {
+    public void TestAboutUs() {
         driver.findElement(By.linkText("О нас")).click();
         String expTitle = "О нас";
         String actTitle = driver.getTitle();
         Assert.assertEquals(expTitle, actTitle);
     }
     @Test
-    public void login(){
+    public void TestLogin(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(3) > .icon")).click();
         driver.findElement(By.linkText("Вход")).click();
         driver.findElement(By.cssSelector("#userName")).sendKeys("RockStar");
@@ -50,9 +50,16 @@ public class MainPage {
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollBy(0,250)");
         driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(By.linkText("RockStar")).click();
+        String expText = "Личный раздел пользователя RockStar";
+        String actText = driver.findElement(By.cssSelector("#userBox > div.header")).getText();
+        Assert.assertEquals(actText, expText);
+
+
+
     }
     @Test
-    public void invalidLogin(){
+    public void TestInvalidLogin(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(3) > .icon")).click();
         driver.findElement(By.linkText("Вход")).click();
         driver.findElement(By.cssSelector("#userName")).sendKeys("invalidLogin");
@@ -65,20 +72,23 @@ public class MainPage {
         //Assert.assertEquals(actText, expText);
     }
     @Test
-    public void invalidPassword(){
+    public void TestInvalidPassword(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(3) > .icon")).click();
         driver.findElement(By.linkText("Вход")).click();
         driver.findElement(By.cssSelector("#userName")).sendKeys("RockStar");
-        driver.findElement(By.cssSelector("#userPass")).sendKeys("invalidLogin");
+        driver.findElement(By.cssSelector("#userPass")).sendKeys("invalidPassword");
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollBy(0,250)");
         driver.findElement(By.xpath("//button[@type='submit']")).click();
-        String expText = "Ошибка входа. Имя пользователя или пароль указаны неверно.";
-        String actText = driver.findElement(By.cssSelector(".errorMessage")).getText();
+        String expText = "Возникла ошибка";
+        String actText = driver.findElement(By.cssSelector("#errorMainBox > div.header")).getText();
         Assert.assertEquals(actText, expText);
+
+
+
     }
     @Test
-    public void emptyLogin(){
+    public void TestEmptyLogin(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(3) > .icon")).click();
         driver.findElement(By.linkText("Вход")).click();
         driver.findElement(By.cssSelector("#userName")).sendKeys("");
@@ -91,7 +101,7 @@ public class MainPage {
         Assert.assertEquals(actText, expText);
     }
     @Test
-    public void emptyPassword(){
+    public void TestEmptyPassword(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(3) > .icon")).click();
         driver.findElement(By.linkText("Вход")).click();
         driver.findElement(By.cssSelector("#userName")).sendKeys("RockStar");
@@ -104,21 +114,21 @@ public class MainPage {
         Assert.assertEquals(actText, expText);
     }
     @Test
-    public void tournaments(){
+    public void TestTournaments(){
         driver.findElement(By.cssSelector(".right > .ui > .item:nth-child(2)")).click();
         String expURL = "https://allhockey.ru/stat/list";
         String actURL = driver.getCurrentUrl();
         Assert.assertEquals(actURL, expURL);
     }
     @Test
-    public void matches(){
+    public void TestMatches(){
         driver.findElement(By.cssSelector(".right > .ui > .item:nth-child(1)")).click();
         String expURL = "https://allhockey.ru/stat/center";
         String actURL = driver.getCurrentUrl();
         Assert.assertEquals(actURL, expURL);
     }
     @Test
-    public void searchRU(){
+    public void TestSearchRU(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(1) > .icon")).click();
         driver.findElement(By.cssSelector(".ui:nth-child(2) .site-main-search")).sendKeys("Овечкин");
         driver.findElement(By.cssSelector(".ui:nth-child(2) .ui .inverted")).click();
@@ -127,7 +137,7 @@ public class MainPage {
         Assert.assertEquals(expTitle, actTitle);
     }
     @Test
-    public void searchEN(){
+    public void TestSearchEN(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(1) > .icon")).click();
         driver.findElement(By.cssSelector(".ui:nth-child(2) .site-main-search")).sendKeys("Jagr");
         driver.findElement(By.cssSelector(".ui:nth-child(2) .ui .inverted")).click();
@@ -136,7 +146,7 @@ public class MainPage {
         Assert.assertEquals(expTitle, actTitle);
     }
     @Test
-    public void searchEmpty(){
+    public void TestSearchEmpty(){
         driver.findElement(By.cssSelector(".popmenu-right:nth-child(1) > .icon")).click();
         driver.findElement(By.cssSelector(".ui:nth-child(2) .site-main-search")).sendKeys("");
         driver.findElement(By.cssSelector(".ui:nth-child(2) .ui .inverted")).click();
@@ -145,7 +155,7 @@ public class MainPage {
         Assert.assertEquals(expText, actText);
     }
     @Test
-    public void linkVK(){
+    public void TestlinkVK(){
         driver.findElement(By.cssSelector(".vk")).click();
         String expURL = "https://vk.com/club21848866";
         String actURL = driver.getCurrentUrl();
